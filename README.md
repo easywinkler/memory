@@ -1,1 +1,1 @@
-# Memory Game erstellt mit Vus.js
+# Memory Game erstellt mit Vue.js
