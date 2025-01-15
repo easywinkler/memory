@@ -1,0 +1,122 @@
+body {
+    background-color: #323231;
+    display: flex;
+    justify-content: center;
+    align-items: center;  /* Vertikale Zentrierung */
+    margin: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.btn {
+    background-color: #87cab1;
+    border: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+    background-color: #c89d58 ;
+}
+
+.btn:disabled {
+    background-color: #c89d58 ;
+}
+
+.flip-container {
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -o-perspective: 1000;
+    perspective: 1000;
+    min-height: 120px;
+    cursor: pointer;
+}
+
+.front,
+.back {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: 0.6s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: 0.6s;
+    -moz-transform-style: preserve-3d;
+    -o-transition: 0.6s;
+    -o-transform-style: preserve-3d;
+    -ms-transition: 0.6s;
+    -ms-transform-style: preserve-3d;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.back {
+     -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    position: absolute;
+}
+
+.flip-container.flipped .back {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+.flip-container.flipped .front {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.matched{
+    opacity: 0.3;
+ }
+
+ .memorycard .front,
+.memorycard .back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.memorycard .front {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+@media (max-width: 576px) {
+    
+    
+
+    .flip-container {
+        max-width: 80px; /* Karten klein halten */
+    }
+
+    .memorycard .front img, .memorycard .back img{
+        width: 80px;
+        height: 80px;
+        margin: 5px;
+        padding: 5px;
+    }
+}
