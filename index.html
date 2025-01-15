@@ -14,6 +14,8 @@
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="assets/style.css" />
   </head>
   <body>
@@ -69,6 +71,23 @@
           </div>
         </div>
       </div>
+
+      <!-- Modal -->
+      <div v-show="finish" class="modal-overlay show">
+        <div class="modal-content">
+          <h2>Yeeeah - Congratulations! &#127881;</h2>
+          <p>You did it with <span
+            class="badge"
+            :class="finish ? 'badge-success' : 'badge-light'"
+            >{{turns}}</span> turns in <span
+            class="badge"
+            :class="finish ? 'badge-success' : 'badge-light'"
+            >{{min}} : {{sec}}</span
+          ></span </p>
+          <hr>
+          <button @click="reset" class="btn2">Restart</button>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -85,6 +104,7 @@
               name: "Banana",
               img: "banana.jpg",
             },
+            /*
             {
               name: "Orange",
               img: "orange.jpg",
@@ -116,7 +136,7 @@
             {
               name: "eggplant",
               img: "eggplant.jpg",
-            },
+            },*/
           ],
           memoryCards: [],
           flippedCards: [],
@@ -177,10 +197,10 @@
                 this.flippedCards.forEach((card) => (card.isMatched = true));
                 this.flippedCards = [];
 
-                //All cards matched ?
+                // Alle Karten gematcht?
                 if (this.memoryCards.every((card) => card.isMatched === true)) {
                   clearInterval(this.interval);
-                  this.finish = true;
+                  this.finishGame(); // Pop-up anzeigen
                 }
               }, 400);
             } else {
@@ -226,10 +246,36 @@
               this.totalTime.minutes = 0;
               this.totalTime.seconds = 0;
               this.start = false;
-              this.finish = false;
+              this.finish = false; // Pop-up zurücksetzen
               this.turns = 0;
               this.flippedCards = [];
             }, 600);
+          },
+          finishGame() {
+            this.finish = true;
+            var end = Date.now() + (8 * 500);
+            var colors = ['#c89d58', '#87cab1', '#fff'];
+
+            (function frame() {
+              confetti({
+                particleCount: 2,
+                angle: 60,
+                spread: 100,
+                origin: { x: 0 },
+                colors: colors
+              });
+              confetti({
+                particleCount: 2,
+                angle: 120,
+                spread: 90,
+                origin: { x: 1 },
+                colors: colors
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
           },
         },
         computed: {
